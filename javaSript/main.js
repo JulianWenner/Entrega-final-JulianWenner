@@ -6,7 +6,7 @@ const productos= [
     {codigo:5,tipo:"monitor",nombre:"Monitor LG 26'' 26WQ500-B UltraWide 21:9",Precio:68650},
     {codigo:6,tipo:"monitor",nombre:"Monitor Gamer Cooler Master 27'' 165hz Curvo 1500R GM27-CF",Precio:83400},
     {codigo:7,tipo:"gpu",nombre:"Placa de Video MSI GeForce RTX 3090 24GB GDDR6X GAMING X TRIO",Precio:295000},
-    {codigo:8,tipo:"gpu",nombre:"Placa de Video MSI GeForce RTX 3090 24GB GDDR6X VENTUS 3X OC",Precio: 290000},
+    {codigo:8,tipo:"gpu",nombre:"Placa de Video MSI GeForce RTX 3090 24GB GDDR6X VENTUS 3X OC",Precio:290000},
     {codigo:9,tipo:"gpu",nombre:"Placa de Video GALAX GeForce RTX 3080 Ti 12GB GDDR6X SG 1-Click OC",Precio:257000},
     {codigo:10,tipo:"gpu",nombre:"Placa de Video ASUS GeForce RTX 3070 Ti 8GB GDDR6 ROG STRIX GAMING OC",Precio:195000},
     {codigo:11,tipo:"gpu",nombre:"Placa de Video Zotac GeForce RTX 3050 8GB GDDR6 Twin Edge OC",Precio:99950},
@@ -57,8 +57,9 @@ function agregarProducto(producto){
 
 const carritoDiv=document.getElementById("div-carrito")
 const productosDiv=document.getElementById("div-productos");
-const buscar=document.getElementById("buscar")
-const radio=document.querySelectorAll('input[type="radio"]')
+const buscar=document.getElementById("buscar");
+const radio=document.querySelectorAll('input[type="radio"]');
+const totalcompra=document.getElementById("totalcompra")
 
 /* let carrito=JSON.parse(localStorage.getItem("carrito")); */
 let carrito=JSON.parse(localStorage.getItem("carrito"))||[];
@@ -82,6 +83,7 @@ function funcinAgregarAlCarrito(){
     productos.forEach(el=>{
         document.getElementById(`btn-agregar${el.codigo}`).addEventListener("click",()=>{
             pushCarrito(el);
+            total()
         })
     })
 
@@ -109,11 +111,13 @@ function mostrarCarrito(){
         <div class="card-body dropdown-cente">
           <h5 class="card-title">${el.nombre}</h5>
           <p class="card-text">$${el.Precio}</p>
+          <p class="card-text">CANTIDAD:${el.cantidad}</p>
           <button id="btn-quitar${el.codigo}">Quitar</button>
         </div>
       </div>`
     })
     funcinQuitarDelCarrito()
+
 }
 
 function funcinQuitarDelCarrito(){
@@ -124,6 +128,7 @@ function funcinQuitarDelCarrito(){
              carrito.splice(indice,1);
 
              mostrarCarrito();
+             total()
              
         })
     })
@@ -152,5 +157,10 @@ buscar.addEventListener("input",()=>{
     creanCard(nuevoFiltro)
 })
 
-
-
+function total(){
+    const total = carrito.reduce((acc, el) => {
+        return acc + el.Precio;
+      },0)
+    console.log(total)
+    totalcompra.innerHTML=`<p>Total de compra: $ ${total}</p>`
+}

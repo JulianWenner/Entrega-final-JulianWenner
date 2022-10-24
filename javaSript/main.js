@@ -30,14 +30,15 @@ const productos= [
     {codigo:29,tipo:"tecladosYmause",nombre:"Teclado Mecanico HP HyperX Alloy Origins 60 Switch RED LA",Precio:15120},
     {codigo:30,tipo:"tecladosYmause",nombre:"4 fotosTeclado Mecanico Patriot Viper V765 RGB Kailh White Box ",Precio:13600}
 ];
-const pepe=[]
-fetch("./javaSript/data.json")
-.then((res)=>res.json())
-.then((data)=>{
-    data.forEach(el=>pepe.push(el))
-})
-console.log(pepe)
-console.log(productos[0])
+
+// lo siguente no lo puede implementarlo me trae los datos pero al querer pushearlos a mi array productos no queda de la misma forma y no me lo renderiza con mi funcion creanCard()
+    /* const productos=[]
+    fetch("./javaSript/data.json")
+    .then((res)=>res.json())
+    .then((data)=>{
+        data.forEach(el=>productos.push(el))
+    })
+*/
 
 function nuevoPorducto(codigo,nombre,precio,tipo){
 
